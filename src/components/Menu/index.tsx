@@ -6,10 +6,9 @@ import './Menu.scss';
 const Menu: FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className='menu' onClick={() => setMenuOpen(!menuOpen)}>
-      <div className='menu-button'>
-        <MenuIcon className='menu-icon-open' />
-        <CloseIcon className='menu-icon-close' />
+    <div className='menu'>
+      <div className='menu-button' onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <CloseIcon className='menu-icon-close' /> : <MenuIcon className='menu-icon-open' />}
       </div>
       <div className={`menu-body  ${menuOpen ? 'menu-body-open' : 'menu-body-closed'}`}>
         <div className='menu-content'>
