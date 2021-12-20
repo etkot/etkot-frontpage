@@ -1,0 +1,28 @@
+@import '../../scss/variables';
+
+.main {
+  background-color: #0f0f0f;
+  height: 100vh;
+}
+
+.logo-container {
+  position: relative;
+  padding-top: 14rem;
+  padding-left: 20%;
+  width: 30rem;
+}
+
+.text-container {
+  position: absolute;
+  bottom: 1rem;
+  right: -3rem;
+}
+
+.logo-text {
+  font-family: 'Century Gothic';
+  font-style: italic;
+  font-weight: bold;
+  color: $text-color;
+  padding: 0;
+  margin: 0;
+}
