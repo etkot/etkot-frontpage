@@ -1,0 +1,19 @@
+@import '../../scss/variables';
+
+.calendar {
+  background-color: #0f0f0f;
+  height: 100vh;
+}
+
+.home-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 3rem;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(0.9);
+  }
+}

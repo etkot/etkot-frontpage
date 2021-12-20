@@ -5,6 +5,7 @@ import './App.scss';
 import Main from './components/Main';
 import Menu from './components/Menu';
 import Gallery from './components/Gallery';
+import Calendar from './components/Calendar';
 
 const App: FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: FC = () => {
           <Routes>
             <Route path='/' element={<Main />} />
             <Route path='/gallery' element={<Gallery />} />
+            <Route path='/calendar' element={<Calendar />} />
           </Routes>
         </Router>
       </AppContextProvider>
