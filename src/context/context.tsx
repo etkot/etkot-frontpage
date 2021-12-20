@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ContextType } from '../types';
 
 const createCtx = (): any => {
@@ -14,7 +14,12 @@ const createCtx = (): any => {
 const [useCtx, CtxProvider] = createCtx();
 
 const AppContextProvider = ({ children }: any): JSX.Element | null => {
-  const defaultValue = {};
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const defaultValue = {
+    menuOpen,
+    setMenuOpen,
+  };
 
   return <CtxProvider value={defaultValue}>{children}</CtxProvider>;
 };
