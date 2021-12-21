@@ -1,11 +1,28 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+require('dayjs/locale/fi');
+import localeData from 'dayjs/plugin/localeData';
+import isoWeek from 'dayjs/plugin/isoWeek';
 import { useCtx } from '../../context/context';
 import { ReactComponent as Logo } from '../../assets/etkot.svg';
+import left from '../../assets/left.png';
+import right from '../../assets/right.png';
 import './Calendar.scss';
 
 const Calendar: FC = () => {
   const { setMenuOpen } = useCtx();
+  dayjs.extend(localeData);
+  dayjs.extend(isoWeek);
+  dayjs.locale('fi');
+  const today = dayjs();
+  const weekDays = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
+
+  const [shownMonth, setShownMonth] = useState(today);
+
+  const changeMonth = (add: boolean) => {
+    add ? setShownMonth(shownMonth.add(1, 'month')) : setShownMonth(shownMonth.subtract(1, 'month'));
+  };
 
   return (
     <div className='calendar'>
@@ -13,6 +30,70 @@ const Calendar: FC = () => {
         <Link to='/'>
           <Logo />
         </Link>
+      </div>
+
+      <div className='calendar-container'>
+        <div className='calendar-title-row'>
+          <img src={left} alt='left' className='arrow' onClick={() => changeMonth(false)} />
+          <h1 className='calendar-text'>{shownMonth.format('MMMM YYYY')}</h1>
+          {/* <h1 className='calendar-text'>{today.format('ddd DD. MMM YYYY')}</h1> */}
+          <img src={right} alt='right' className='arrow' onClick={() => changeMonth(true)} />
+        </div>
+
+        <hr className='divider' />
+
+        <div className='calendar-dates'>
+          {/* Weekday names */}
+          {weekDays.map((day) => {
+            return (
+              <h1 className='calendar-day calendar-date' key={day}>
+                {day}
+              </h1>
+            );
+          })}
+          {/* Last month days */}
+          {shownMonth.isoWeekday() < 7
+            ? [...Array(shownMonth.isoWeekday())].map((_, i) => {
+                return (
+                  <h1 className='calendar-date past' key={i}>
+                    {shownMonth.subtract(1, 'month').daysInMonth() - shownMonth.isoWeekday() + i + 1}
+                  </h1>
+                );
+              })
+            : null}
+          {/* Current month days */}
+          {[...Array(shownMonth.daysInMonth())].map((_, i) => {
+            return (
+              <div key={i}>
+                {shownMonth.month() === today.month() && i + 1 === today.date() ? (
+                  <div className='calendar-highligth'>
+                    <h1 className='calendar-date today'>{i + 1}</h1>
+                  </div>
+                ) : (
+                  <h1 className='calendar-date'>{i + 1}</h1>
+                )}
+              </div>
+            );
+          })}
+          {/* Next month days */}
+          {shownMonth.isoWeekday() === 7 // If first day of the month is a monday
+            ? [...Array(35 - shownMonth.daysInMonth())].map((_, i) => {
+                return (
+                  <h1 className='calendar-date past' key={i}>
+                    {i + 1}
+                  </h1>
+                );
+              })
+            : shownMonth.isoWeekday() < 7 && shownMonth.isoWeekday() + shownMonth.daysInMonth() <= 34 // I don't even know
+            ? [...Array(35 - shownMonth.daysInMonth() - dayjs().isoWeekday())].map((_, i) => {
+                return (
+                  <h1 className='calendar-date past' key={i}>
+                    {i + 1}
+                  </h1>
+                );
+              })
+            : null}
+        </div>
       </div>
     </div>
   );
