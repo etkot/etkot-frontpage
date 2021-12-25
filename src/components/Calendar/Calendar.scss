@@ -59,7 +59,7 @@
     font-family: 'Century Gothic';
     font-weight: bold;
     font-style: italic;
-    margin: 1.5rem 2rem 1.5rem 0;
+    margin: 0.5rem 2rem 1rem 0;
     font-size: 2.25rem;
     text-align: right;
 
@@ -69,7 +69,7 @@
 
     &.today {
       color: $primary-color;
-      margin: 1.5rem 2rem 1rem 0.5rem;
+      margin: 0.5rem 2rem 1rem 0.5rem;
     }
   }
   &-highligth {
