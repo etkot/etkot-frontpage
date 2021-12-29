@@ -22,7 +22,9 @@ const Menu: FC = () => {
           <Link className='link' to='/calendar' onClick={() => setMenuOpen(false)}>
             <h1 className='headline'>Calendar</h1>
           </Link>
-          <h1 className='headline'>About</h1>
+          <Link className='link' to='about' onClick={() => setMenuOpen(false)}>
+            <h1 className='headline'>About</h1>
+          </Link>
         </div>
       </div>
     </div>

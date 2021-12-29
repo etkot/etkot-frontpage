@@ -10,6 +10,8 @@ import left from '../../assets/left.png';
 import right from '../../assets/right.png';
 import './Calendar.scss';
 
+import Events from './Events';
+
 const Calendar: FC = () => {
   const { setMenuOpen } = useCtx();
   dayjs.extend(localeData);
@@ -65,7 +67,9 @@ const Calendar: FC = () => {
 
           {/* Current month days */}
           {[...Array(shownMonth.daysInMonth())].map((_, i) => {
-            return shownMonth.month() === today.month() && i + 1 === today.date() ? (
+            return shownMonth.year() === today.year() &&
+              shownMonth.month() === today.month() &&
+              i + 1 === today.date() ? (
               <div className='calendar-highligth' key={i}>
                 <h1 className='calendar-date today current-month'>{i + 1}</h1>
               </div>
@@ -85,7 +89,7 @@ const Calendar: FC = () => {
                   </h1>
                 );
               })
-            : shownMonth.isoWeekday() <= 7 && shownMonth.isoWeekday() + shownMonth.daysInMonth() <= 35 // I don't even know
+            : shownMonth.isoWeekday() <= 7 && shownMonth.isoWeekday() + shownMonth.daysInMonth() <= 35
             ? [...Array(35 - shownMonth.daysInMonth() - (shownMonth.isoWeekday() - 1))].map((_, i) => {
                 return (
                   <h1 className='calendar-date past' key={i}>
@@ -93,7 +97,7 @@ const Calendar: FC = () => {
                   </h1>
                 );
               })
-            : shownMonth.daysInMonth() + shownMonth.isoWeekday() > 35
+            : shownMonth.daysInMonth() + shownMonth.isoWeekday() > 36
             ? [...Array(42 - shownMonth.daysInMonth() - (shownMonth.isoWeekday() - 1))].map((_, i) => {
                 return (
                   <h1 className='calendar-date past' key={i}>
@@ -104,6 +108,8 @@ const Calendar: FC = () => {
             : null}
         </div>
       </div>
+
+      <Events />
     </div>
   );
 };

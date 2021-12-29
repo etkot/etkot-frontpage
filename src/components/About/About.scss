@@ -1,0 +1,33 @@
+@import '../../scss/variables';
+
+.about {
+  background-color: #0f0f0f;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+
+  &-text {
+    color: $text-color;
+    font-family: 'Century Gothic';
+    font-style: italic;
+    letter-spacing: 1rem;
+    line-height: 2.25rem;
+    margin: 3.5rem 35rem 0rem 8rem;
+    font-size: 1.5rem;
+    align-self: center;
+  }
+}
+
+.home-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 3rem;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(0.9);
+  }
+}

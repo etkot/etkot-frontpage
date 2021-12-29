@@ -20,11 +20,15 @@
 
 .calendar {
   &-container {
-    //background-color: rgb(32, 32, 32);
     position: absolute;
     top: 9rem;
-    left: 8.5rem;
+    left: 5rem;
     width: 65vw;
+
+    @media only screen and (max-width: 1100px) {
+      left: 2rem;
+      width: 90vw;
+    }
   }
   &-title-row {
     display: flex;

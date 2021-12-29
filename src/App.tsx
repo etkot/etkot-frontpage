@@ -6,6 +6,7 @@ import Main from './components/Main';
 import Menu from './components/Menu';
 import Gallery from './components/Gallery';
 import Calendar from './components/Calendar';
+import About from './components/About';
 
 const App: FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: FC = () => {
             <Route path='/' element={<Main />} />
             <Route path='/gallery' element={<Gallery />} />
             <Route path='/calendar' element={<Calendar />} />
+            <Route path='/about' element={<About />} />
           </Routes>
         </Router>
       </AppContextProvider>

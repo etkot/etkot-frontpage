@@ -1,6 +1,8 @@
 @import '../../scss/variables';
 
 .menu {
+  position: relative;
+  z-index: 100;
   &-button {
     cursor: pointer;
     position: absolute;
@@ -35,12 +37,15 @@
     background-color: $secondary-color;
 
     transition: transform 0.3s ease-in-out;
-    max-width: 30rem;
+    max-width: 40rem;
     width: 100%;
     transform: translate(100%, 0);
 
     &-open {
       transform: translate(75vw, 0);
+      @media only screen and (max-width: 775px) {
+        transform: translate(0vw, 0);
+      }
     }
     &-closed {
       transform: translate(100vw, 0);
