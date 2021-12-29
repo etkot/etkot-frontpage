@@ -23,8 +23,8 @@
     //background-color: rgb(32, 32, 32);
     position: absolute;
     top: 9rem;
-    left: 8rem;
-    width: 60vw;
+    left: 8.5rem;
+    width: 63vw;
   }
   &-title-row {
     display: flex;
@@ -35,7 +35,6 @@
     color: $text-color;
     font-family: 'Century Gothic';
     font-weight: bold;
-    font-style: italic;
     margin: 1rem;
     font-size: 3rem;
     text-transform: capitalize;
@@ -45,7 +44,7 @@
     margin: 0;
     margin-top: 1.2rem;
     margin-bottom: 1.5rem;
-    font-size: 2.75rem !important;
+    font-size: 2.25rem !important;
     text-align: right;
   }
 
@@ -53,15 +52,22 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     margin-left: -1rem;
+    justify-items: center;
   }
   &-date {
     color: $text-color;
     font-family: 'Century Gothic';
     font-weight: bold;
-    font-style: italic;
-    margin: 0.5rem 2rem 1rem 0;
-    font-size: 2.25rem;
-    text-align: right;
+    font-size: 2.45rem;
+    cursor: default;
+
+    &.current-month {
+      cursor: pointer;
+      transition: 0.4s;
+      &:hover {
+        transform: scale(0.9);
+      }
+    }
 
     &.past {
       color: #242424;
@@ -69,16 +75,14 @@
 
     &.today {
       color: $primary-color;
-      margin: 0.5rem 2rem 1rem 0.5rem;
+      margin: 0rem;
     }
   }
   &-highligth {
     background-color: white;
-    height: 3.5rem;
-    width: 3.5rem;
-    border-radius: 1rem;
-    margin-left: auto;
-    margin-right: 1.5rem;
+    border-radius: 45%;
+    align-self: center;
+    padding: 0.55rem;
   }
 }
 

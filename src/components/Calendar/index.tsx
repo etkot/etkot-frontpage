@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-require('dayjs/locale/fi');
+import 'dayjs/locale/fi';
 import localeData from 'dayjs/plugin/localeData';
 import isoWeek from 'dayjs/plugin/isoWeek';
 import { useCtx } from '../../context/context';
@@ -32,6 +32,8 @@ const Calendar: FC = () => {
         </Link>
       </div>
 
+      <div className='calendar-date'>{shownMonth.isoWeekday()}</div>
+
       <div className='calendar-container'>
         <div className='calendar-title-row'>
           <img src={left} alt='left' className='arrow' onClick={() => changeMonth(false)} />
@@ -51,9 +53,10 @@ const Calendar: FC = () => {
               </h1>
             );
           })}
+
           {/* Last month days */}
-          {shownMonth.isoWeekday() < 7
-            ? [...Array(shownMonth.isoWeekday())].map((_, i) => {
+          {shownMonth.isoWeekday() <= 7
+            ? [...Array(shownMonth.isoWeekday() - 1)].map((_, i) => {
                 return (
                   <h1 className='calendar-date past' key={i}>
                     {shownMonth.subtract(1, 'month').daysInMonth() - shownMonth.isoWeekday() + i + 1}
@@ -61,22 +64,22 @@ const Calendar: FC = () => {
                 );
               })
             : null}
+
           {/* Current month days */}
           {[...Array(shownMonth.daysInMonth())].map((_, i) => {
-            return (
-              <div key={i}>
-                {shownMonth.month() === today.month() && i + 1 === today.date() ? (
-                  <div className='calendar-highligth'>
-                    <h1 className='calendar-date today'>{i + 1}</h1>
-                  </div>
-                ) : (
-                  <h1 className='calendar-date'>{i + 1}</h1>
-                )}
+            return shownMonth.month() === today.month() && i + 1 === today.date() ? (
+              <div className='calendar-highligth' key={i}>
+                <h1 className='calendar-date today current-month'>{i + 1}</h1>
               </div>
+            ) : (
+              <h1 className='calendar-date current-month' key={i}>
+                {i + 1}
+              </h1>
             );
           })}
+
           {/* Next month days */}
-          {shownMonth.isoWeekday() === 7 // If first day of the month is a monday
+          {shownMonth.isoWeekday() === 1 // If first day of the month is a monday
             ? [...Array(35 - shownMonth.daysInMonth())].map((_, i) => {
                 return (
                   <h1 className='calendar-date past' key={i}>
@@ -85,7 +88,7 @@ const Calendar: FC = () => {
                 );
               })
             : shownMonth.isoWeekday() < 7 && shownMonth.isoWeekday() + shownMonth.daysInMonth() <= 34 // I don't even know
-            ? [...Array(35 - shownMonth.daysInMonth() - dayjs().isoWeekday())].map((_, i) => {
+            ? [...Array(35 - shownMonth.daysInMonth() - shownMonth.isoWeekday())].map((_, i) => {
                 return (
                   <h1 className='calendar-date past' key={i}>
                     {i + 1}
