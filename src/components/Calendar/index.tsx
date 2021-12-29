@@ -16,9 +16,10 @@ const Calendar: FC = () => {
   dayjs.extend(isoWeek);
   dayjs.locale('fi');
   const today = dayjs();
+  const firstOfCurrentMonth = dayjs(new Date(today.year(), today.month(), 1));
   const weekDays = ['Ma', 'Ti', 'Ke', 'To', 'Pe', 'La', 'Su'];
 
-  const [shownMonth, setShownMonth] = useState(today);
+  const [shownMonth, setShownMonth] = useState(firstOfCurrentMonth);
 
   const changeMonth = (add: boolean) => {
     add ? setShownMonth(shownMonth.add(1, 'month')) : setShownMonth(shownMonth.subtract(1, 'month'));
@@ -32,13 +33,10 @@ const Calendar: FC = () => {
         </Link>
       </div>
 
-      <div className='calendar-date'>{shownMonth.isoWeekday()}</div>
-
       <div className='calendar-container'>
         <div className='calendar-title-row'>
           <img src={left} alt='left' className='arrow' onClick={() => changeMonth(false)} />
           <h1 className='calendar-text'>{shownMonth.format('MMMM YYYY')}</h1>
-          {/* <h1 className='calendar-text'>{today.format('ddd DD. MMM YYYY')}</h1> */}
           <img src={right} alt='right' className='arrow' onClick={() => changeMonth(true)} />
         </div>
 
@@ -87,8 +85,16 @@ const Calendar: FC = () => {
                   </h1>
                 );
               })
-            : shownMonth.isoWeekday() < 7 && shownMonth.isoWeekday() + shownMonth.daysInMonth() <= 34 // I don't even know
-            ? [...Array(35 - shownMonth.daysInMonth() - shownMonth.isoWeekday())].map((_, i) => {
+            : shownMonth.isoWeekday() <= 7 && shownMonth.isoWeekday() + shownMonth.daysInMonth() <= 35 // I don't even know
+            ? [...Array(35 - shownMonth.daysInMonth() - (shownMonth.isoWeekday() - 1))].map((_, i) => {
+                return (
+                  <h1 className='calendar-date past' key={i}>
+                    {i + 1}
+                  </h1>
+                );
+              })
+            : shownMonth.daysInMonth() + shownMonth.isoWeekday() > 35
+            ? [...Array(42 - shownMonth.daysInMonth() - (shownMonth.isoWeekday() - 1))].map((_, i) => {
                 return (
                   <h1 className='calendar-date past' key={i}>
                     {i + 1}
