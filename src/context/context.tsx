@@ -1,19 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ContextType } from '../types';
 
-const createCtx = (): any => {
-  const ctx = React.createContext<ContextType | undefined>(undefined);
-  const useCtx = (): ContextType => {
-    const c = React.useContext(ctx);
-    if (!c) throw new Error('useCtx must be inside a Provider with a value');
-    return c;
-  };
-  return [useCtx, ctx.Provider];
-};
+const Context = React.createContext<ContextType>({});
+const useCtx = (): ContextType => useContext(Context);
 
-const [useCtx, CtxProvider] = createCtx();
-
-const AppContextProvider = ({ children }: any): JSX.Element | null => {
+const AppContextProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const defaultValue = {
@@ -21,7 +12,7 @@ const AppContextProvider = ({ children }: any): JSX.Element | null => {
     setMenuOpen,
   };
 
-  return <CtxProvider value={defaultValue}>{children}</CtxProvider>;
+  return <Context.Provider value={defaultValue}>{children}</Context.Provider>;
 };
 
 export { useCtx, AppContextProvider };

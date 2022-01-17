@@ -1,3 +1,4 @@
 export type ContextType = {
-  tunikka: any;
+  menuOpen?: any;
+  setMenuOpen?: any;
 };
